@@ -1,0 +1,78 @@
+{% include 'header.html' %}
+
+<div>
+	<p class="letra">Abiertos 24 horas los 365 días del año!!!. Contamos con tiendas en CABA, zona Sur, zona Oeste y zona Norte</p>
+</div>
+
+<h3>Contacto - Datos personales</h3>
+<p class="letra" id="exclamacion">
+	A continuación puede dejarnos sus datos de contacto para resolver sus consultas:
+</p>
+
+<form class="formulario" action="https://formspree.io/f/moqbewdr" method="POST" target="_blank" id="forma" >
+	<fieldset id="field">
+	<legend id="datos">Datos personales</legend>
+	<label for="n_nombre" id="names">Nombres<sup>*</sup></label>
+	<br />
+
+	<input type="text" id="n_nombre" name="n_nombre"
+		placeholder="Escriba aquí su nombre..." required class="dat" />
+		<br />
+		<label for = "n_apellido" id = "ape">Apellidos<sup>*</sup></label>
+		<br />
+		<input type = "text" id = "n_apellido" name = "n_apellido" placeholder = "Escriba aquí su apellido..." required class="dat"/>
+		<br />
+		<label for="dni" id="doc">DNI<sup>*</sup></label>
+		<br />
+		<input type = "number" id = "dni" name = "n_doc" placeholder = "Escriba su DNI..." required class="dat" />
+		<br />
+        <label for="genero_femenino" id="gen">Género<sup>*</sup> Femenino:</label>
+        <input type = "radio" id = "genero_femenino" name = "genero" value = "genero" required />
+        <label for = "genero_masculino">Masculino:</label>
+        <input type = "radio" id = "genero_masculino" name = "genero"
+          value="genero" required />
+        <label for="genero_otro">Otro:</label>
+        <input type="radio" id="genero_otro" name="genero" value="genero" required />
+        <br />
+        <label for="correo" class="mail" id="corr">Correo Electrónico<sup>*</sup></label><br />
+        <input type="text" id="correo" name="correo" placeholder="Escriba aquí su correo electrónico..." required class="dat" />
+		<br />
+        <label for="tel" id="tele">Número de Teléfono<sup>*</sup></label><br />
+        <input type="number" id="tel" name="tel"           placeholder="Escriba aquí su número de teléfono..."          required class="dat"/>
+		<br />
+        <label for="cel" id="celu">Número de celular<sup>*</sup></label>
+		<br />
+        <input type="number" id="cel" name="cel" placeholder="Escriba aquí su número de celular..." required class="dat" />
+		<br />
+        <label for="horario_dia" id="tiempo">Día disponible para contactarlo<sup>*</sup></label>
+		<select name="horario" class="dias" required id="horario_dia">
+			<option value="" class="dias">Seleccione un día...</option>
+			<option class="dia">Lunes</option>
+			<option class="dia">Martes</option>
+			<option class="dia">Miércoles</option>
+			<option class="dia">Jueves</option>
+			<option class="dia">Viernes</option>
+			<option class="dia">Sábado</option>
+			<option class="dia">Domingo</option>
+		</select>
+		<br />
+        <label for="horario_hora" >Horario disponible para contactarlo<sup>*</sup></label>
+        <select name="horario_hora" class="dias" required id="horario_hora">
+			<option value="" class="dias">Seleccione un horario...</option>
+			<option class="dia">00:00 hs. a 06:00 hs.</option>
+			<option class="dia">06:00 hs. a 12:00 hs.</option>
+			<option class="dia">12:00 hs. a 18:00 hs.</option>
+ 	    	<option class="dia">18:00 hs. a 23:59 hs.</option>
+		</select>
+		<br />
+		<input type="submit" value="enviar" class="manda" onclick="validacionDatos()"/>
+		<input type="reset" value="borrar" class="manda" />
+	</fieldset>
+</form>
+
+<div class="ar_editar">
+	Consulta
+	<textarea name="consulta" rows="13" cols="50" id="consulta" class="cons" placeholder="Por favor escriba aquí su consulta..."></textarea>
+</div>
+
+{% include 'footer.html' %}

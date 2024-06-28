@@ -1,0 +1,16 @@
+{% include 'header.html' %}
+
+<form class="formulario" method="POST">
+
+	<input type="number" name="fi" value="{{mps.0}}" hidden><br>
+	<label for="ft">Tipo:</label>
+	<input type="text" name="ft" value="{{mps.1}}"><br>
+	<label for="fd">Descuento:</label>
+	<input type="text" name="fd" value="{{mps.2}}"><br>
+	<label for="fc">Clase:</label>
+	<input type="text" name="fc" value="{{mps.3}}"><br>
+	<input type="submit" value="Enviar">
+
+</form>
+
+{% include 'footer.html' %}
