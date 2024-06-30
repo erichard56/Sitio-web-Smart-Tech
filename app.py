@@ -4,33 +4,90 @@ import mysql.connector      # pip instal mysql-connector-python
 
 app = Flask(__name__)
 
-conn = mysql.connector.connect(
-    # host = 'sql10.freemysqlhosting.net',
-    # user = 'sql10715490',
-    # password = 'vpy7xcsZkk',
-    # database = 'sql10715490'
-    host = 'localhost',
-    user = 'smart',
-    password = 'Smart@Tech22',
-    database = 'sql10715490'
-)
-cursor = conn.cursor()
+# conn = mysql.connector.connect(
+#     # host = 'sql10.freemysqlhosting.net',
+#     # user = 'sql10715490',
+#     # password = 'vpy7xcsZkk',
+#     # database = 'sql10715490'
+#     host = 'localhost',
+#     user = 'smart',
+#     password = 'Smart@Tech22',
+#     database = 'sql10715490'
+# )
+# cursor = conn.cursor()
 
+class cnx:
+    def __init__(self, host, user, password, database):
+        self.conn = mysql.connector.connect(
+            host = host,
+            user = user,
+            password = password, 
+            database = database
+        )
+        self.cursor = self.conn.cursor()
+
+    def get_productos(self):
+        q1 = 'SELECT * FROM productos ORDER BY id'
+        self.cursor.execute(q1)
+        productos = self.cursor.fetchall()
+        return (productos)
+
+    def get_medios_pago(self):
+        q1 = 'SELECT * FROM medios_pago'
+        self.cursor.execute(q1)
+        mps = self.cursor.fetchall()
+        return(mps)
+
+    def get_medio_pago(self, id):
+        q1 = 'SELECT * FROM medios_pago WHERE id = ' + str(id)
+        self.cursor.execute(q1)
+        mps = self.cursor.fetchone()
+        return(mps)
+
+    def agregar_medio_pago(self, tipo, descuento, clase):
+        q1 = 'INSERT INTO medios_pago (tipo, descuento, clase) VALUES (%s, %s, %s)' 
+        try:
+            self.cursor.execute(q1, (ft, fd, fc))
+            self.commit()
+            return(True)
+        except:
+            return(False)
+
+    def modificar_medio_pago(self, id, tipo, descuento, clase):
+        q1 = 'UPDATE medios_pago SET tipo = %s, descuento = %s, clase = %s WHERE id = %s'
+        try:
+            self.cursor.execute(q1, (ft, fd, fc, fi))
+            self.conn.commit()
+            return(True)
+        except:
+            return(False)
+
+    def eliminar_medio_pago(self, id):
+        q1 = 'DELETE medios_pago WHERE id = ' + str(id)
+        try:
+            self.cursor.execute(q1)
+            self.conn.commit()
+            return(True)
+        except:
+            return(False)
+
+
+
+cnx = cnx('localhost', 'smart', 'Smart@Tech22', 'sql10715490')
 
 @app.route('/')
 def index():
-    q1 = 'SELECT * FROM productos ORDER BY id'
-    cursor.execute(q1)
-    productos = cursor.fetchall()
+    productos = cnx.get_productos()
     return render_template('index.html', productos = productos)
     # return jsonify(productos)
 
 @app.route('/j')
 def indexj():
-    q1 = 'SELECT * FROM productos ORDER BY id'
-    cursor.execute(q1)
-    productos = cursor.fetchall()
+    # q1 = 'SELECT * FROM productos ORDER BY id'
+    # cursor.execute(q1)
+    # productos = cursor.fetchall()
     # return render_template('index.html', productos = productos)
+    productos = cnx.get_productos()
     return jsonify(productos)
 
 @app.route('/historia')
@@ -40,9 +97,10 @@ def historia():
 
 @app.route('/medios_pago')
 def medios_pago():
-    q1 = 'SELECT * FROM medios_pago'
-    cursor.execute(q1)
-    mps = cursor.fetchall()
+    # q1 = 'SELECT * FROM medios_pago'
+    # cursor.execute(q1)
+    # mps = cursor.fetchall()
+    mps = cnx.get_medios_pago()
     return render_template('medios_pago.html', mps = mps) 
     # return jsonify(mps)
 
@@ -53,9 +111,9 @@ def modificar(id):
         if (id == 0):
             mps = [0, '', 0, '']
         else:
-            q1 = 'SELECT * FROM medios_pago WHERE id = ' + str(id)
-            cursor.execute(q1)
-            mps = cursor.fetchone()
+            # q1 = 'SELECT * FROM medios_pago WHERE id = ' + str(id)
+            # cursor.execute(q1)
+            mps = cnx.get_medio_pago(id)
         return render_template('modificar_medios_pago.html', mps = mps)
     else:
         fi = int(request.form['fi'])
@@ -64,20 +122,27 @@ def modificar(id):
         fc = request.form['fc']
 
         if (fi == 0):
-            q1 = 'INSERT INTO medios_pago (tipo, descuento, clase) VALUES (%s, %s, %s)' 
-            cursor.execute(q1, (ft, fd, fc))
+            # q1 = 'INSERT INTO medios_pago (tipo, descuento, clase) VALUES (%s, %s, %s)' 
+            # cursor.execute(q1, (ft, fd, fc))
+            if (not cnx.agregar_medio_pago(ft, fd, fc)):
+                print('Error agregando medio de pago')
         else:
-            q1 = 'UPDATE medios_pago SET tipo = %s, descuento = %s, clase = %s WHERE id = %s'
-            cursor.execute(q1, (ft, fd, fc, fi))
-        conn.commit()
+            # q1 = 'UPDATE medios_pago SET tipo = %s, descuento = %s, clase = %s WHERE id = %s'
+            # cursor.execute(q1, (ft, fd, fc, fi))
+            if (not cnx.modificar_medio_pago(ft, fd, fc, fi)):
+                print('Error modificando medio de pago')
+        # conn.commit()
         return redirect('/medios_pago') 
 
 
 @app.route('/eliminar/<int:id>')
 def eliminar(id):
     q1 = 'DELETE from medios_pago WHERE id = ' + str(id)
-    cursor.execute(q1)
+    # cursor.execute(q1)
+    if (not cnx.cursor(q1, id)):
+        print('Error eliminando registro')
     return redirect('/medios_pago')
+
 
 
 @app.route('/registro_consultas')
