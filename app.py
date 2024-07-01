@@ -36,7 +36,7 @@ class cnx:
         q1 = f'INSERT INTO medios_pago (tipo, descuento, clase) VALUES ("{tipo}", {descuento}, "{clase}")'
         try:
             self.cursor.execute(q1)
-            self.commit()
+            self.conn.commit()
             return(True)
         except:
             return(False)
