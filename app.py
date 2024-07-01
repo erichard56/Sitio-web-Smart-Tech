@@ -45,25 +45,25 @@ class cnx:
         return(mps)
 
     def agregar_medio_pago(self, tipo, descuento, clase):
-        q1 = 'INSERT INTO medios_pago (tipo, descuento, clase) VALUES (%s, %s, %s)' 
+        q1 = 'INSERT INTO medios_pago (tipo, descuento, clase) VALUES (%s, %s, %s)'
         try:
-            self.cursor.execute(q1, (ft, fd, fc))
+            self.cursor.execute(q1, (tipo, descuento, clase))
             self.commit()
             return(True)
         except:
             return(False)
 
-    def modificar_medio_pago(self, id, tipo, descuento, clase):
-        q1 = 'UPDATE medios_pago SET tipo = %s, descuento = %s, clase = %s WHERE id = %s'
+    def modificar_medio_pago(self, tipo, descuento, clase, id):
+        q1 = 'UPDATE medios_pago SET tipo = %s, descuento = %s, clase = %s WHERE id = ' + str(id)
         try:
-            self.cursor.execute(q1, (ft, fd, fc, fi))
+            self.cursor.execute(q1, (tipo, descuento, clase))
             self.conn.commit()
             return(True)
         except:
             return(False)
 
     def eliminar_medio_pago(self, id):
-        q1 = 'DELETE medios_pago WHERE id = ' + str(id)
+        q1 = 'DELETE FROM medios_pago WHERE id = ' + str(id)
         try:
             self.cursor.execute(q1)
             self.conn.commit()
@@ -137,10 +137,10 @@ def modificar(id):
 
 @app.route('/eliminar/<int:id>')
 def eliminar(id):
-    q1 = 'DELETE from medios_pago WHERE id = ' + str(id)
+    # q1 = 'DELETE FROM medios_pago WHERE id = ' + str(id)
     # cursor.execute(q1)
-    if (not cnx.cursor(q1, id)):
-        print('Error eliminando registro')
+    if (not cnx.eliminar_medio_pago(id)):
+        print('Error eliminando medio de pago')
     return redirect('/medios_pago')
 
 
