@@ -100,17 +100,17 @@ def modificar(id):
 
         if (fi == 0):
             if (not cnx.agregar_medio_pago(ft, fd, fc)):
-                print('Error agregando medio de pago')
+                return 'Error agregando medio de pago'
         else:
             if (not cnx.modificar_medio_pago(ft, fd, fc, fi)):
-                print('Error modificando medio de pago')
+                return 'Error modificando medio de pago'
         return redirect('/medios_pago') 
 
 
 @app.route('/eliminar/<int:id>')
 def eliminar(id):
     if (not cnx.eliminar_medio_pago(id)):
-        print('Error eliminando medio de pago')
+        return 'Error eliminando medio de pago'
     return redirect('/medios_pago')
 
 
