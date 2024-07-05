@@ -1,8 +1,10 @@
 from flask import Flask     # pip install flask
 from flask import render_template, request, redirect, jsonify
+from flask_cors import CORS
 import mysql.connector      # pip instal mysql-connector-python
 
 app = Flask(__name__)
+CORS(app)
 
 class cnx:
     def __init__(self, host, user, password, database):
@@ -68,7 +70,7 @@ def index():
     productos = cnx.get_productos()
     return render_template('index.html', productos = productos)
 
-@app.route('/j')
+@app.route('/productosj')
 def indexj():
     productos = cnx.get_productos()
     return jsonify(productos)
