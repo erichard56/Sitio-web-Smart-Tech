@@ -35,6 +35,50 @@ h2 {
   text-align: center;
 }
 
+.grid-pago, .historia {
+  width: auto;
+  margin: 10%;
+}
+
+/*  MODIFICACION DE LA TABLA EN UN GRID RESPONSIVO */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.grid-header {
+  font-weight: bold;
+  text-align: center;
+  background-color: #333;
+  padding: 10px;
+  border: 1px solid #9b9393;
+  color: white;
+}
+
+.grid-item {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #9b9393;
+}
+
+@media (max-width: 768px) {
+  .boton-pago {
+    grid-template-columns: 1fr;
+}
+
+  .grid-container {
+      grid-template-columns: 1fr;
+  }
+
+  .grid-header, .grid-item {
+      text-align: left;
+  }
+}
+
+/* Afecta los colores del precio */
 p.precio{
   color: #1e8f0b;
   padding: 10px;
@@ -50,7 +94,8 @@ p.letra, h3{
   text-align: center;
 }
 
-a {
+/* Afecta los del Nav */
+h4 a { 
   outline: none;
   text-decoration: none;
   display: inline-block;
@@ -61,11 +106,11 @@ a {
   color: rgb(255, 255, 255);
 }
 
-a:hover {
+h4 a:hover {
   color: rgb(25, 133, 235);
 }
 
-a:active {
+h4 a:active {
   background: rgb(55, 117, 233);
   color: white;
 }
@@ -122,6 +167,9 @@ footer p {
   text-align: center;
   border: 1px solid #ccc;
   border-radius: 5px;
+  justify-items: stretch;
+  align-content: space-between;
+  justify-content: center;
 }
 
 .producto img {
@@ -139,17 +187,18 @@ footer p {
   margin: 10px 0;
 }
 
-.producto button {
+button, button a {
   background-color: #007bff;
   color: #fff;
+  text-decoration: none;
   border: none;
-  padding: 10px 20px;
+  padding: 5px 5px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.producto button:hover {
+button:hover, button a:hover {
   background-color: #0056b3;
 }
 
@@ -168,10 +217,11 @@ footer p {
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; 
-    padding: 20px;
+    margin: 15% auto;
+    padding: 1%;
+    border-radius: 10px;
     border: 1px solid #888;
-    width: 80%; 
+    width: 40%;
 }
 
 .close {
@@ -259,22 +309,7 @@ p.history {
   text-align: justify;
 }
 
-table {
-  margin: 10px;
-  width: 900px;
-  height: 300px;
-  border: 1px solid black;
-  margin-bottom: 30px;
-  margin-left: 70px;
-}
-
-th, td {
-  border: 3px double black;
-  padding: 1px;
-  text-align: left;
-}
-
-.mesa .casillero, .mesa .efect, .mesa .cred, .mesa .deb, .mesa .m_pago, .mesa .mov {
+.grid-pago .casillero, .grid-pago .efect, .grid-pago .cred, .grid-pago .deb, .grid-pago .m_pago, .grid-pago .mov {
   font-size: 20px;
 }
 
@@ -302,12 +337,11 @@ th, td {
   font-size: 48p0;
 }
 
-button {
+/* button {
   cursor: pointer;
   border-radius: 80px;
   background-color: rgb(145, 209, 178);
   margin-bottom: 1px;
   margin-left: 5px;
   font-size: large;
-}
-
+} */

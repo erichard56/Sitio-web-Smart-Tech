@@ -2,30 +2,30 @@
 
 <h2 class="h_dos" id="h_pago">Medios de Pago disponibles</h2>
 
-<div class="mesa">
-	<button style="margin-left: 750px;"><a href="/modificar/0">Nuevo Medio de Pago</a></button>
-		<table>
-			<tr>
-				<th style="text-align: center" class="casillero">Medios de Pago</th>
-				<th style="text-align: center" class="casillero">Descuento</th>
-				<th style="text-align: center" class="casillero">Acciones</th>
-			</tr>
-			{% for mp in mps %}
-				<tr>
-					{% if mp.3 != 'clase' %}
-						<td style="text-align: center" class={{ mp.3 }}> {{ mp.1 }} </td>
-					{% else %}
-						<td style="text-align: center" class="nuevo"> {{ mp.1 }} </td>
-					{% endif %}
-					<td><p class="mov" id="movi" style="text-align: center">{{ mp.2 }}%</p></td>
-					<td>
-						<button style="text-align: center"><a href="/modificar/{{mp.0}}">Modificar</a></button>
-						<button style="text-align: center"><a href="/eliminar/{{mp.0}}" onclick="return confirm('Esta seguro?')">Eliminar</a></button>
-					</td>
-				</tr>
-			{% endfor %}
-		</table>
-	</div>
+<div class="grid-pago">
+	<button><a href="/modificar/0">Nuevo Medio de Pago</a></button>
+	<div class="grid-container">
+	   
+        <div class="grid-header">Medios de Pago</div>
+        <div class="grid-header">Descuento</div>
+        <div class="grid-header">Acciones</div>
+
+        {% for mp in mps %}
+            <div class="grid-item {% if mp.3 != 'clase' %}{{ mp.3 }}{% else %}nuevo{% endif %}">{{ mp.1 }}</div>
+							 
+																	   
+			   
+																	
+				
+            <div class="grid-item mov">{{ mp.2 }}%</div>
+            <div class="grid-item">
+                <button><a href="/modificar/{{mp.0}}">Modificar</a></button>
+                <button><a href="/eliminar/{{mp.0}}" onclick="return confirm('Esta seguro?')">Eliminar</a></button>
+            </div>
+		 
+        {% endfor %}
+		  
+    </div>
 </div>
 
 {% include 'footer.html' %}
